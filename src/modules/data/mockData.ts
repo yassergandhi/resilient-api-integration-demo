@@ -1,3 +1,6 @@
+// NOTE: This file exports individual lesson constants and a canonical `lessons` array.
+// Prefer importing the `lessons` array when you need the full curriculum list.
+
 import type { Lesson } from '../../models/types';
 
 // ==============================================================================
@@ -400,4 +403,8 @@ export const lessonA1_010: Lesson = {
   }
 };
 
-export const lessons: Lesson[] = [lessonA1_001, lessonA1_002, lessonA1_003, lessonA1_004, lessonA1_005, lessonA1_006, lessonA1_007, lessonA1_008, lessonA1_009, lessonA1_010];
+// Export a canonical lessons array (sorted by order) to simplify imports elsewhere.
+export const lessons: Lesson[] = [
+  lessonA1_001, lessonA1_002, lessonA1_003, lessonA1_004, lessonA1_005,
+  lessonA1_006, lessonA1_007, lessonA1_008, lessonA1_009, lessonA1_010
+].slice().sort((a, b) => a.order - b.order)

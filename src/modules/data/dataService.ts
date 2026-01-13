@@ -1,32 +1,35 @@
 import type { Lesson } from '../../models/types';
-import { 
-  lessonA1_001, lessonA1_002, lessonA1_003, lessonA1_004, lessonA1_005,
-  lessonA1_006, lessonA1_007, lessonA1_008, lessonA1_009, lessonA1_010 
-} from './mockData';
+import { lessons as ALL_LESSONS } from './mockData';
 
-// Agrupar todas las lecciones en un array maestro
-const ALL_LESSONS: Lesson[] = [
-  lessonA1_001, lessonA1_002, lessonA1_003, lessonA1_004, lessonA1_005,
-  lessonA1_006, lessonA1_007, lessonA1_008, lessonA1_009, lessonA1_010
-];
+/**
+ * Public utilities for lesson data.
+ * - getAllLessons returns a new sorted array (non-mutating)
+ * - getLessonById returns Lesson | null (avoids undefined which can break strict React state types)
+ * - getNextLessonId finds the next lesson in the sorted list or returns null
+ */
 
-export const dataService = {
-  // Obtener todas las lecciones (para la lista de inicio)
-  getAllLessons: (): Lesson[] => {
-    return ALL_LESSONS.sort((a, b) => a.order - b.order);
-  },
+export function getAllLessons(): Lesson[] {
+  // return a sorted shallow copy so callers can't mutate the source ordering
+  return ALL_LESSONS.slice().sort((a, b) => a.order - b.order);
+}
 
-  // Obtener una lección específica por ID
-  getLessonById: (lessonId: string): Lesson | undefined => {
-    return ALL_LESSONS.find(l => l.id === lessonId);
-  },
+export function getLessonById(lessonId: string): Lesson | null {
+  const found = ALL_LESSONS.find(l => l.id === lessonId);
+  return found ?? null;
+}
 
-  // Obtener la siguiente lección basada en el ID actual
-  getNextLessonId: (currentLessonId: string): string | null => {
-    const currentIndex = ALL_LESSONS.findIndex(l => l.id === currentLessonId);
-    if (currentIndex === -1 || currentIndex === ALL_LESSONS.length - 1) {
-      return null; // No hay siguiente lección o ID inválido
-    }
-    return ALL_LESSONS[currentIndex + 1].id;
+export function getNextLessonId(currentLessonId: string): string | null {
+  const sorted = getAllLessons();
+  const currentIndex = sorted.findIndex(l => l.id === currentLessonId);
+  if (currentIndex === -1 || currentIndex >= sorted.length - 1) {
+    return null;
   }
+  return sorted[currentIndex + 1].id;
+}
+
+// Keep a compatibility object for code that imports dataService
+export const dataService = {
+  getAllLessons,
+  getLessonById,
+  getNextLessonId
 };
