@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+# Huhugerman - Customer Success Engineering Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based German learning application designed to demonstrate **Implementation Engineering** and **Technical Troubleshooting** skills.
 
-Currently, two official plugins are available:
+Unlike standard portfolio projects, this repository simulates a real-world integration environment with network latency, random API failures, and diagnostic tooling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Features (CSE Focus)
 
-## React Compiler
+* **Simulated SDK/API Layer:** `lessonApi.ts` mimics a real backend with variable latency and random HTTP 401/500 errors.
+* **Resilient UI:** Handles loading states, error boundaries, and provides user-facing retry mechanisms.
+* **Integration Debugging:** Exposes internal request IDs (`req_...`) and status codes in the UI to facilitate support tickets.
+* **Operational Documentation:** Includes a standard operating procedure (SOP) for handling errors.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
+* React 18 + TypeScript
+* Vite
+* TailwindCSS (styling)
 
-## Expanding the ESLint configuration
+## 🏃‍♂️ Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2.  **Run the simulation:**
+    ```bash
+    npm run dev
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3.  **Test the Troubleshooting flow:**
+    * Open the app in your browser.
+    * Reload the page multiple times.
+    * Approximately 20% of requests will fail intentionally.
+    * Use the **"Integration Debug"** panel and the **TROUBLESHOOTING.md** guide to diagnose the "error".
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📚 Documentation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+For detailed error analysis and fix procedures, please refer to:
+👉 **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+*Created by Yasser Gandhi - Implementation Engineer / CSE Candidate*
